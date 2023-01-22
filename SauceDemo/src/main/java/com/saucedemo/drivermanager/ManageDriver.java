@@ -30,15 +30,15 @@ public class ManageDriver {
         if (browser.equalsIgnoreCase("chrome")) {
             WebDriverManager.chromedriver().setup();
             log.info("Launching Chrome Browser");
-            driver = new com.saucedemo.drivermanager.WebDriverManager();
+            driver = new WebDriverManager();
         } else if (browser.equalsIgnoreCase("firefox")) {
             WebDriverManager.firefoxdriver().setup();
             log.info("Launching Firefox Browser");
-            driver = new com.saucedemo.drivermanager.WebDriverManager();
+            driver = new WebDriverManager();
         } else if (browser.equalsIgnoreCase("ie")) {
             WebDriverManager.iedriver().setup();
             log.info("Launching IE Browser");
-            driver = new com.saucedemo.drivermanager.WebDriverManager();
+            driver = new WebDriverManager();
         } else {
             System.out.println("Wrong browser name");
         }

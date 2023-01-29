@@ -7,18 +7,19 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
-import com.saucedemo.drivermanager.WebDriverManager;
+import com.saucedemo.drivermanager.AllDriverManager;
+//import com.saucedemo.drivermanager.WebDriverManager;
 import com.saucedemo.utility.Utility;
 
 public class CheckOutInformationPage extends Utility {
-    private static final Logger log = LogManager.getLogger(CheckOutInformationPage.class.getName());
 
-    //to initialise webelements @findby annotations for this page
-    public CheckOutInformationPage() {
-    	new WebDriverManager();
-		WebDriver driver = WebDriverManager.chromedriver();
-    	PageFactory.initElements(driver, new CheckOutInformationPage());
+    //logger defined to print logs
+    private static final Logger log = LogManager.getLogger(HomePage.class.getName());
+
+    public CheckOutInformationPage(WebDriver webDriver) {
+        PageFactory.initElements(new AjaxElementLocatorFactory(webDriver, 15), this);
     }
 
     @CacheLookup

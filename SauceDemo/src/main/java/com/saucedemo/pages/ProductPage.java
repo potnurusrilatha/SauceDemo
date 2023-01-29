@@ -9,20 +9,21 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
-import com.saucedemo.drivermanager.WebDriverManager;
+//import com.saucedemo.drivermanager.WebDriverManager;
 import com.saucedemo.utility.Utility;
 
 public class ProductPage extends Utility {
     //logger defined to print logs
-    private static final Logger log = LogManager.getLogger(ProductPage.class.getName());
+	 private static final Logger log = LogManager.getLogger(CheckOutOverViewPage.class.getName());
 
-    //to initialise webelements @findby annotations for this page
-    public ProductPage() {
-    	new WebDriverManager();
-		WebDriver driver = WebDriverManager.chromedriver();
-    	PageFactory.initElements(driver, new ProductPage());
-    }
+	    //logger defined to print logs
+	  
+
+	    public ProductPage(WebDriver webDriver) {
+	        PageFactory.initElements(new AjaxElementLocatorFactory(webDriver, 15), this);
+	    }
 
     @CacheLookup
     @FindBy(xpath = "//select[@class='product_sort_container']")

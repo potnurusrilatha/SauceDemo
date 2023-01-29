@@ -30,9 +30,10 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.google.common.base.Function;
-import com.saucedemo.drivermanager.ManageDriver;
+import com.saucedemo.drivermanager.AllDriverManager;
 
-public class Utility extends ManageDriver {
+public class Utility extends AllDriverManager {
+	static WebDriver webDriver;
 
     //*****************BASIC WEBDRIVER METHODS******************************
 
@@ -43,20 +44,22 @@ public class Utility extends ManageDriver {
      * @ param by
      */
     public void pmClickOnElement(By by) {
-        WebElement loginLink = driver.findElement(by);
+        WebElement loginLink = webDriver.findElement(by);
         loginLink.click();
     }
 
     public void pmClickOnElement(WebElement element) {
         element.click();
     }
+    
+    
 
     /**
      * This method will get text from element
      */
     public String pmGetTextFromElement(By by) {
 
-        return driver.findElement(by).getText();
+        return webDriver.findElement(by).getText();
     }
 
     public String pmGetTextFromElement(WebElement element) {
@@ -68,7 +71,7 @@ public class Utility extends ManageDriver {
      * This method will send text on element
      */
     public void pmSendTextToElement(By by, String text) {
-        driver.findElement(by).sendKeys(text);
+    	webDriver.findElement(by).sendKeys(text);
     }
     public void pmSendTextToElement(WebElement element, String text) {
         element.sendKeys(text);
@@ -80,7 +83,7 @@ public class Utility extends ManageDriver {
      * @param by
      */
     public void pmFindElementAndClearText(By by) {
-        WebElement elementToClear = driver.findElement(by);
+        WebElement elementToClear = webDriver.findElement(by);
         elementToClear.clear();
     }
     public void pmFindElementAndClearText(WebElement element) {
@@ -95,7 +98,7 @@ public class Utility extends ManageDriver {
      * @return
      */
     public String pmGetAttributeFromElement(By by, String attribute) {
-        return driver.findElement(by).getAttribute(attribute);
+        return webDriver.findElement(by).getAttribute(attribute);
     }
     public String pmGetAttributeFromElement(WebElement element, String attribute) {
         return element.getAttribute(attribute);
@@ -107,37 +110,37 @@ public class Utility extends ManageDriver {
     /**
      * This method will switch to alert
      */
-    public void pmSwitchToAlert() {
-        driver.switchTo().alert();
-    }
+//    public void pmSwitchToAlert() {
+//        driver.switchTo().alert();
+//    }
 
     /**
      * This method will accept alert
      */
-    public void pmAcceptAlert() {
-        driver.switchTo().alert().accept();
-    }
-
-    /**
-     * This method will dismiss alert
-     */
-    public void pmDismissAlert() {
-        driver.switchTo().alert().dismiss();
-    }
-
-    /**
-     * This method will get text from alert
-     */
-    public String pmGetTextFromAlert() {
-        return driver.switchTo().alert().getText();
-    }
-
-    /**
-     * This method will send text to alert
-     */
-    public void pmSendTextToAlert(String text) {
-        driver.switchTo().alert().sendKeys(text);
-    }
+//    public void pmAcceptAlert() {
+//        driver.switchTo().alert().accept();
+//    }
+//
+//    /**
+//     * This method will dismiss alert
+//     */
+//    public void pmDismissAlert() {
+//        driver.switchTo().alert().dismiss();
+//    }
+//
+//    /**
+//     * This method will get text from alert
+//     */
+//    public String pmGetTextFromAlert() {
+//        return driver.switchTo().alert().getText();
+//    }
+//
+//    /**
+//     * This method will send text to alert
+//     */
+//    public void pmSendTextToAlert(String text) {
+//        driver.switchTo().alert().sendKeys(text);
+//    }
 
 
 //*************************** Select Class Methods ***************************************//
@@ -146,7 +149,7 @@ public class Utility extends ManageDriver {
      * This method will select the option by visible text
      */
     public void pmSelectByVisibleTextFromDropDown(By by, String text) {
-        WebElement dropDown = driver.findElement(by);
+        WebElement dropDown = webDriver.findElement(by);
         Select select = new Select(dropDown);
         select.selectByVisibleText(text);
     }
@@ -159,7 +162,7 @@ public class Utility extends ManageDriver {
      * This method will select the option by value
      */
     public void pmSelectByValueFromDropDown(By by, String value) {
-        new Select(driver.findElement(by)).selectByValue(value);
+        new Select(webDriver.findElement(by)).selectByValue(value);
     }
     public void pmSelectByValueFromDropDown(WebElement webElement, String value) {
         new Select(webElement).selectByValue(value);
@@ -169,7 +172,7 @@ public class Utility extends ManageDriver {
      * This method will select the option by index
      */
     public void pmSelectByIndexFromDropDown(By by, int index) {
-        new Select(driver.findElement(by)).selectByIndex(index);
+        new Select(webDriver.findElement(by)).selectByIndex(index);
     }
     public void pmSelectByIndexFromDropDown(WebElement element, int index) {
         new Select(element).selectByIndex(index);
@@ -179,7 +182,7 @@ public class Utility extends ManageDriver {
      * This method will select the option by contains text
      */
     public void pmSelectByContainsTextFromDropDown(By by, String text) {
-        List<WebElement> allOptions = new Select(driver.findElement(by)).getOptions();
+        List<WebElement> allOptions = new Select(webDriver.findElement(by)).getOptions();
         for (WebElement options : allOptions) {
             if (options.getText().contains(text)) {
                 options.click();
@@ -206,7 +209,7 @@ public class Utility extends ManageDriver {
 
     public void pmSelectMenu(By by, String menu)  {
 
-        List<WebElement> names = driver.findElements(by);
+        List<WebElement> names = webDriver.findElements(by);
         for (WebElement name : names) {
 
             if (name.getText().equalsIgnoreCase(menu)) {
@@ -236,7 +239,7 @@ public class Utility extends ManageDriver {
     public void pmCloseAllWindows(List<String> hList, String parentWindow) {
         for (String str : hList) {
             if (!str.equals(parentWindow)) {
-                driver.switchTo().window(str).close();
+            	webDriver.switchTo().window(str).close();
             }
         }
     }
@@ -245,7 +248,7 @@ public class Utility extends ManageDriver {
      * This method will switch to parent window
      */
     public void pmSwitchToParentWindow(String parentWindowId) {
-        driver.switchTo().window(parentWindowId);
+    	webDriver.switchTo().window(parentWindowId);
     }
 
     /**
@@ -253,7 +256,7 @@ public class Utility extends ManageDriver {
      */
     public boolean pmSwitchToRightWindow(String windowTitle, List<String> hList) {
         for (String str : hList) {
-            String title = driver.switchTo().window(str).getTitle();
+            String title = webDriver.switchTo().window(str).getTitle();
             if (title.contains(windowTitle)) {
                 System.out.println("Found the right window....");
                 return true;
@@ -268,11 +271,11 @@ public class Utility extends ManageDriver {
      * This method will use to hover mouse on element
      */
     public void pmMouseHoverNoClick(By by) {
-        Actions actions = new Actions(driver);
-        actions.moveToElement(driver.findElement(by)).build().perform();
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(webDriver.findElement(by)).build().perform();
     }
     public void pmMouseHoverNoClick(WebElement element) {
-        Actions actions = new Actions(driver);
+        Actions actions = new Actions(webDriver);
         actions.moveToElement(element).build().perform();
     }
 
@@ -283,12 +286,12 @@ public class Utility extends ManageDriver {
      * @param by
      */
     public void pmMouseHoverAndClick(By by) {
-        Actions hover = new Actions(driver);
-        WebElement a = driver.findElement(by);
+        Actions hover = new Actions(webDriver);
+        WebElement a = webDriver.findElement(by);
         hover.moveToElement(a).click().build().perform();
     }
     public void pmMouseHoverAndClick(WebElement element) {
-        Actions hover = new Actions(driver);
+        Actions hover = new Actions(webDriver);
         hover.moveToElement(element).click().build().perform();
     }
 
@@ -297,13 +300,13 @@ public class Utility extends ManageDriver {
      * and click the second element
      */
     public void pmMouseHoverOnFirstThenSecondAndClick(By by1, By by2) {
-        Actions hover = new Actions(driver);
-        WebElement destination1 = driver.findElement(by1);
-        WebElement destination2 = driver.findElement(by2);
+        Actions hover = new Actions(webDriver);
+        WebElement destination1 = webDriver.findElement(by1);
+        WebElement destination2 = webDriver.findElement(by2);
         hover.moveToElement(destination1).moveToElement(destination2).click().build().perform();
     }
     public void pmMouseHoverOnFirstThenSecondAndClick(WebElement element1, WebElement element2) {
-        Actions hover = new Actions(driver);
+        Actions hover = new Actions(webDriver);
         hover.moveToElement(element1).moveToElement(element2).click().build().perform();
     }
 
@@ -313,12 +316,12 @@ public class Utility extends ManageDriver {
      * @param by
      */
     public void doRightClick(By by) {
-        Actions rightClick = new Actions(driver);
-        WebElement a = driver.findElement(by);
+        Actions rightClick = new Actions(webDriver);
+        WebElement a = webDriver.findElement(by);
         rightClick.contextClick(a).build().perform();
     }
     public void doRightClick(WebElement element) {
-        Actions rightClick = new Actions(driver);
+        Actions rightClick = new Actions(webDriver);
         rightClick.contextClick(element).build().perform();
     }
 
@@ -330,13 +333,13 @@ public class Utility extends ManageDriver {
      * @param target
      */
     public void pmDragAndDrop(By source, By target) {
-        Actions builder = new Actions(driver);
-        WebElement draggable = driver.findElement(source);
+        Actions builder = new Actions(webDriver);
+        WebElement draggable = webDriver.findElement(source);
         WebElement droppable = draggable.findElement(target);
         builder.dragAndDrop(draggable, droppable).build().perform();
     }
     public void pmDragAndDrop(WebElement draggable, WebElement droppable) {
-        Actions builder = new Actions(driver);
+        Actions builder = new Actions(webDriver);
         builder.dragAndDrop(draggable, droppable).build().perform();
     }
 
@@ -349,12 +352,12 @@ public class Utility extends ManageDriver {
      * @param yAxis
      */
     public void pmSliderMovement( By sliderBox, int xAxis, int yAxis) {
-        Actions moveSlider = new Actions(driver);
-        WebElement slider = driver.findElement(sliderBox);
+        Actions moveSlider = new Actions(webDriver);
+        WebElement slider = webDriver.findElement(sliderBox);
         moveSlider.dragAndDropBy(slider, xAxis, yAxis).build().perform();
     }
     public void pmSliderMovement( WebElement slider, int xAxis, int yAxis) {
-        Actions moveSlider = new Actions(driver);
+        Actions moveSlider = new Actions(webDriver);
         moveSlider.dragAndDropBy(slider, xAxis, yAxis).build().perform();
     }
 
@@ -364,15 +367,15 @@ public class Utility extends ManageDriver {
      * This method will use to wait until  VisibilityOfElementLocated
      */
     public WebElement pmWaitUntilVisibilityOfElementLocated(By by, int timeout) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(timeout));
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-        return driver.findElement(by);
+        return webDriver.findElement(by);
     }
 
 
 
     public String pmWaitUntilTitleIsEqualTo(String expectedMessage) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(50));
         wait.until(ExpectedConditions.titleContains(expectedMessage));
         return expectedMessage;
     }
@@ -386,7 +389,7 @@ public class Utility extends ManageDriver {
      * @return
      */
     public WebElement pmWaitForElementWithFluentWait(By by, int time, int pollingTime) {
-        Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+        Wait<WebDriver> wait = new FluentWait<WebDriver>(webDriver)
                 .withTimeout(Duration.ofSeconds(time))
                 .pollingEvery(Duration.ofSeconds(pollingTime))
                 .ignoring(NoSuchElementException.class);
@@ -410,7 +413,7 @@ public class Utility extends ManageDriver {
      */
     public static String pmTakeScreenShot(String fileName) {
         String filePath = System.getProperty("user.dir") + "/test-output/html/"; // path where screen shot needs to be saved
-        TakesScreenshot screenshot = (TakesScreenshot) driver; // method to take screenshot
+        TakesScreenshot screenshot = (TakesScreenshot) webDriver; // method to take screenshot
         File scr1 = screenshot.getScreenshotAs(OutputType.FILE);
         String imageName = fileName + currentTimeStamp() + ".jpg";
         String destination = filePath + imageName;
@@ -467,7 +470,7 @@ public class Utility extends ManageDriver {
      */
 
     public void verifyTheSortingOrderOfPriceLowToHighIsCorrect(By beforeFilterElements, By dropDown, By lowToHigh) {
-        List<WebElement> beforeFilterWebElementPrice = driver.findElements(beforeFilterElements);
+        List<WebElement> beforeFilterWebElementPrice = webDriver.findElements(beforeFilterElements);
         List<Double> beforeFilterDoublePriceList = new ArrayList<>();
         for (WebElement p : beforeFilterWebElementPrice) {
             beforeFilterDoublePriceList.add(Double.valueOf(p.getText().replace("$", " ")));
@@ -477,7 +480,7 @@ public class Utility extends ManageDriver {
         pmMouseHoverNoClick(dropDown);
         pmMouseHoverAndClick(lowToHigh);
 
-        List<WebElement> afterFilterWebElementPriceList = driver.findElements(beforeFilterElements);
+        List<WebElement> afterFilterWebElementPriceList = webDriver.findElements(beforeFilterElements);
         List<Double> afterFilterDoublePriceList = new ArrayList<>();
 
         for (WebElement p : afterFilterWebElementPriceList) {
@@ -495,7 +498,7 @@ public class Utility extends ManageDriver {
      */
 
     public void verifyIfProductsAreSortedByPriceHighToLow(By beforeFilterElements, By dropDown, By hToLow) throws InterruptedException {
-        List<WebElement> originalList = driver.findElements(beforeFilterElements);
+        List<WebElement> originalList = webDriver.findElements(beforeFilterElements);
 
         List<Double> originalProductPriceList = new ArrayList<>();
         for (WebElement price : originalList) {
@@ -509,7 +512,7 @@ public class Utility extends ManageDriver {
         pmMouseHoverAndClick(hToLow);
         Thread.sleep(3000);
 
-        List<WebElement> afterSortingList = driver.findElements(beforeFilterElements);
+        List<WebElement> afterSortingList = webDriver.findElements(beforeFilterElements);
         List<Double> afterSortingProductPrice = new ArrayList<>();
         for (WebElement price1 : afterSortingList) {
             afterSortingProductPrice.add(Double.valueOf(price1.getText().replace("$", "")));
@@ -529,7 +532,7 @@ public class Utility extends ManageDriver {
      */
 
     public void verifyProductsAreSortedAccordingToRatingHighToLow(By beforeFilterElements, By dropDown, By hToLow) throws InterruptedException {
-        List<WebElement> originalList = driver.findElements(beforeFilterElements);
+        List<WebElement> originalList = webDriver.findElements(beforeFilterElements);
 
         List<Integer> originalProductRating = new ArrayList<>();
         for (WebElement rating : originalList) {
@@ -540,7 +543,7 @@ public class Utility extends ManageDriver {
         pmMouseHoverNoClick(dropDown);
         pmMouseHoverAndClick(hToLow);
         Thread.sleep(3000);
-        List<WebElement> afterSortingList = driver.findElements(beforeFilterElements);
+        List<WebElement> afterSortingList = webDriver.findElements(beforeFilterElements);
         List<Integer> afterSortingProductRating = new ArrayList<>();
         for (WebElement rating1 : afterSortingList) {
             afterSortingProductRating.add(rating1.getAttribute("style").indexOf(2, 6));
@@ -561,7 +564,7 @@ public class Utility extends ManageDriver {
      */
     public void verifyProductsAreSortedAlphabeticallyFromAToZ(By beforeFilterElements, By dropDown, By aToZ) throws InterruptedException {
 
-        List<WebElement> originalList = driver.findElements(beforeFilterElements);
+        List<WebElement> originalList = webDriver.findElements(beforeFilterElements);
         List<String> originalProductRatingList = new ArrayList<>();
         for (WebElement product : originalList) {
             originalProductRatingList.add(product.getText());
@@ -572,7 +575,7 @@ public class Utility extends ManageDriver {
         pmMouseHoverNoClick(dropDown);
         pmMouseHoverAndClick(aToZ);
 
-        List<WebElement> afterSortingList = driver.findElements(beforeFilterElements);
+        List<WebElement> afterSortingList = webDriver.findElements(beforeFilterElements);
         List<String> afterSortingProductName = new ArrayList<>();
         for (WebElement product : afterSortingList) {
             afterSortingProductName.add(product.getText());
@@ -588,7 +591,7 @@ public class Utility extends ManageDriver {
      */
 
     public void verifyProductsAreSortedFromZtoA(By beforeFilterElements, By dropDown, By zToA) throws InterruptedException {
-        List<WebElement> originalList = driver.findElements(beforeFilterElements);
+        List<WebElement> originalList = webDriver.findElements(beforeFilterElements);
         List<String> originalProductNameList = new ArrayList<>();
         for (WebElement product : originalList) {
             originalProductNameList.add(product.getText());
@@ -601,7 +604,7 @@ public class Utility extends ManageDriver {
         Thread.sleep(3000);
 
 
-        List<WebElement> afterSortingList = driver.findElements(beforeFilterElements);
+        List<WebElement> afterSortingList = webDriver.findElements(beforeFilterElements);
         List<String> afterSortingProductName = new ArrayList<>();
         for (WebElement product1 : afterSortingList) {
             afterSortingProductName.add(product1.getText());
@@ -613,7 +616,7 @@ public class Utility extends ManageDriver {
     }
 
     public void pmSwitchToIframe(WebElement element){
-        driver.switchTo().frame(element);
+    	webDriver.switchTo().frame(element);
 
     }
 

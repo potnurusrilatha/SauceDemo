@@ -16,16 +16,16 @@
 #""
 ## (Comments)
 #Sample Feature Definition Template
-@tag
+#@tag
 Feature:Feature: Search functionality
   As a user I want to purchase cheapest and costliest product from the sauce demo after sorting the products by High to Low filter.
 
-  Background:
-  I am on sauce demo page
-    Given I am on sauce demo page
-  Scenario: User navigates sauce demo page and complete the item purchase
-    When I login with credential username "standard_user" and password "secret_sauce"
-    And I click on Login button
+  #Background:
+  #I am on sauce demo page
+    #Given I am on sauce demo page
+  Scenario Outline: User navigates sauce demo page and complete the item purchase
+    Given I login with credential "<username>" and "<password>"
+    When I click on Login button
     And I filter the products by Price "high to low"
     And I select cheapest & costliest products and add to basket
     And I open shopping cart
@@ -34,4 +34,9 @@ Feature:Feature: Search functionality
     And I click on continue button
     And I click on finish button
     Then I should be able to see message 'Thank you for your order'
+    
+    Examples:
+    |username|password|
+    |standard_user|secret_sauce|
+    
 

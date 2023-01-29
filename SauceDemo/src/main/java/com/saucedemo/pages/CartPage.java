@@ -7,18 +7,19 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
-import com.saucedemo.drivermanager.WebDriverManager;
+import com.saucedemo.drivermanager.AllDriverManager;
+//import com.saucedemo.drivermanager.WebDriverManager;
 import com.saucedemo.utility.Utility;
 
-public class CartPage extends Utility {
-    private static final Logger log = LogManager.getLogger(CartPage.class.getName());
+public class CartPage extends AllDriverManager {
 
-    //to initialise elements find by annotations for this page
-    public CartPage() {
-    	new WebDriverManager();
-		WebDriver driver = WebDriverManager.chromedriver();
-    	PageFactory.initElements(driver, new CartPage());
+    //logger defined to print logs
+    private static final Logger log = LogManager.getLogger(HomePage.class.getName());
+
+    public CartPage(WebDriver webDriver) {
+        PageFactory.initElements(new AjaxElementLocatorFactory(webDriver, 15), this);
     }
 
     @CacheLookup
@@ -27,7 +28,7 @@ public class CartPage extends Utility {
 
     public void clickOnCheckOut() {
         log.info("Clicking on the check-out button: " + checkOutButton.getText());
-        pmClickOnElement(checkOutButton);
+        checkOutButton.click();
     }
 }
 

@@ -26,7 +26,7 @@ import cucumber.api.junit.Cucumber;
         plugin = {"pretty","html:target/cucumber-report/cucumber.html",
                 "com.cucumber.listener.ExtentCucumberFormatter:target/Extent_Reports/report.html",
                 "json:target/RunCuke/cucumber.json"}
-        //tags="@Regression"
+        //tags="@Regression" test
 
 
 )
